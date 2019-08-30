@@ -1,4 +1,4 @@
-# cricket-game
+# Simple Cricket-Game
 A Simple command line Cricket game written in Python
 
 There will be a coin toss at the beginning to see who gets to BAT first. (user or computer).
