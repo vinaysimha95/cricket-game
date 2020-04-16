@@ -8,10 +8,12 @@ bat_bowl = ["bat", "bowl"]
 function_call = 0
 
 def toss():
+    global user_play
     global toss_index
     print("Let's have a toss to see who gets to Bat first\nFlipping the coin........")
     user_choice = input("What's your choice? (Heads or Tails): ")
     user_choice = user_choice.capitalize()
+    print("user selected :",user_choice)
     while(True):
         try:
             head_tail.index(user_choice)
@@ -21,11 +23,33 @@ def toss():
     toss_value = random.choice(head_tail)
     print("It's " + toss_value + "!")
     if(user_choice == toss_value):
-        print("Congrats, you get to bat first!!!")
-        toss_index = 0
+        #print("Congrats, you get to bat first!!!")
+        user_selected = input("Would you like to bat or bowl :  ")
+        if(user_selected == "bat"):
+            print("You have selected to bat")
+            toss_index = 0
+            user_play = "bat"
+        elif(user_selected == "bowl"):
+            print("You have selected to bowl")
+            toss_index = 1
+            user_play = "bowl"
+        else:
+            print("Please select either to bat or bowl")
+        
     else:
-        print("Computer gets to bat first") 
-        toss_index = 1
+        print("You have lost the toss") 
+        pc_value = random.choice(bat_bowl)
+        if(pc_value == "bat"):
+            print("Computer as opted to bat")
+            toss_index = 1
+            user_play = "bowl"
+        else:
+            print("Computer as opted to bowl")
+            toss_index = 0
+            user_play = "bat"
+        
+        
+        
 
 def play(a, b, c, d):
     global function_call
@@ -63,20 +87,22 @@ def score():
     print("\nSCORE:\nYou\tComputer\n"+str(user_score)+"\t"+str(comp_score))
     if(user_score > comp_score):
         print("\n\nYOU WIN!!!\n\n")
+        
     elif(user_score < comp_score):
         print("\n\nCOMPUTER WINS!!!\n\n")
+            
     else:
         print("\n\nWell, it's a tie!!!\n\n")
 
 toss()
 if(toss_index == 0):
-    play("Bat", "Computer bowled", "You got out", "Your score is ")
+    play(user_play, "Computer bowled", "You got out", "Your score is ")
     toss_index = 1
     function_call = 1
     print("\nNow it's the computer's chance to BAT")
     play("Bowl", "Computer scored", "Computer got out", "Computer's score is ")
 else:
-    play("Bowl", "Computer scored", "Computer got out", "Computer's score is ")
+    play(user_play, "Computer scored", "Computer got out", "Computer's score is ")
     toss_index = 0
     function_call = 1
     print("\nNow it's your chance to BAT")
